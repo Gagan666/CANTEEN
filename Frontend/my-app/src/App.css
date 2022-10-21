@@ -46,7 +46,7 @@
   color: #EEFCF8;
   text-align: center;
 
-  transition: 2s;
+  transition: 0.7s;
 }
 
 /* Form Side of Container */
@@ -66,22 +66,26 @@
 
   font-weight: bold;
   color: #035E7B;
-
-  transition: 2s;
+  
+  transition: 0.7s;
 }
 
 .send-right{
   right: 0;
+  
 }
 
 .send-left{
   right: 35%;
+ 
+ 
 }
 
 
 /* Layout styling of forms, labels, inputs */
 .form-comp{
   flex-direction: column;
+
 }
 
 .sign-up-form{

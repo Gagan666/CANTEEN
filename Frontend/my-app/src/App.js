@@ -5,6 +5,7 @@ import './App.css';
 
 // components 
 import Container from './components/Container';
+import SignUp from './components/SignUp';
 
 const App = () => {
   return (

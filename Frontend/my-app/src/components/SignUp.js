@@ -1,42 +1,107 @@
-import React from 'react';
+import React, { Component,useState } from "react";
+import axiosInstance  from "axios";
+//import {useNavigate} from 'react-router-dom';
 
-// styling
-import '../App.css';
+function SignUp(){
+  //const navigate = useNavigate();
 
-const SignUp = () => {
+ const initialFormData=Object.freeze({
+  phone:'',
+  user_name:'',
+  password:'',
+ });
+ const [FormData , updateFormData]=useState(initialFormData);
+ const handleChange=(e)=>{
+  updateFormData({
+    ...FormData,
+    [e.target.name]: e.target.value.trim(),
+  })
+ };
+ const handleSubmit=(e)=>{
+  e.preventDefault();
+  console.log(FormData);
 
-  return (
-    <div className="form-comp cfb">
-      <h1 >Create an Account!</h1>
-      <form className="sign-up-form cfb">
-        <label>
-          Name:
-          <br/>
-          <input />
-        </label>
-        <label>
-          Email:
-          <br/>
-          <input type="email" />
-        </label>
-        <label>
-          Password:
-          <br/>
-          <input type="password"/>
-        </label>
+  try{
+  axiosInstance
+        .post('http://127.0.0.1:8000/api/register/',{
+          phone: FormData.phoneno,
+          user_name: FormData.username,
+          password: FormData.password,
+        })
        
-        <label>
-          Confirm Password:
+        .then((res) => {
+          if (!res.ok) {
+              // error processing
+              throw 'Error';
+          }
+          console.log(res);
+          console.log(res.data);
+          return res.json()
+      })
+      console.log(res.resp.data);
+    }
+ 
+      catch (error) {
+        console.error(error.res.data);     // NOTE - use "error.response.data` (not "error")
+      }
+    }
+
+ return (
+     
+  <div className="form-comp cfb">
+<h1>Sign Up!</h1>
+<form className="sign-up-form cfb">
+<label>
+  Phoneno:
+  <br/>
+  <input  type="number"
+          name="phoneno"
+          placeholder="Enter phoneno"
+          onChange={handleChange}
+        />
+</label>
+<label>
+  User Name:
+  <br/>
+  <input  type="text"
+          name="username"
+          placeholder="Enter user name"
           
-          <input type="password"/>
-        </label>
-        <br/>
-        <button>
-          Sign Up!
-        </button>
-      </form>
-    </div>
-  );
+          onChange={handleChange}
+        />
+</label>
+<label>
+  Password:
+  <br/>
+  <input  type="password"
+          name="password"
+          placeholder="Enter password"
+          onChange={handleChange}/>
+</label>
+
+<button  color="primary"
+      onClick={handleSubmit}  >
+  Submit
+</button>
+</form></div>
+    
+     
+
+  
+);
+
 }
+
+ 
+
+
+  
+
+      
+ 
+    
+
+
+
 
 export default SignUp;
